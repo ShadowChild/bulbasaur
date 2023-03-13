@@ -6,12 +6,14 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
 
 fun HTML.index() {
     head {
-        title("Hello from Ktor!")
+        title("Bulbasaur Remote Client")
     }
     body {
         div {
@@ -20,12 +22,18 @@ fun HTML.index() {
         div {
             id = "root"
         }
-        script(src = "/static/untitled.js") {}
+        script(src = "/static/Bulbasaur.js") {}
     }
 }
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "127.0.0.1") {
+    embeddedServer(Netty, port = 5656, host = "127.0.0.1") {
+        install(StatusPages) {
+            status(HttpStatusCode.NotFound) {
+                call, status ->
+                call.respondRedirect("/")
+            }
+        }
         routing {
             get("/") {
                 call.respondHtml(HttpStatusCode.OK, HTML::index)

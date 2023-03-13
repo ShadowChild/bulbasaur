@@ -1,7 +1,9 @@
 plugins {
-    kotlin("multiplatform") version "1.8.0"
+    kotlin("multiplatform") version "1.8.10"
     application
 }
+
+val ktor_version = "2.2.3"
 
 group = "co.uk.innoxium"
 version = "1.0-SNAPSHOT"
@@ -39,8 +41,9 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-server-netty:2.0.2")
-                implementation("io.ktor:ktor-server-html-builder-jvm:2.0.2")
+                implementation("io.ktor:ktor-server-netty:$ktor_version")
+                implementation("io.ktor:ktor-server-html-builder-jvm:$ktor_version")
+                implementation("io.ktor:ktor-server-status-pages:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
             }
         }
