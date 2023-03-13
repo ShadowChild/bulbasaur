@@ -60,7 +60,7 @@ kotlin {
 }
 
 application {
-    mainClass.set("co.uk.innoxium.application.ServerKt")
+    mainClass.set("co.uk.innoxium.bulbasaur.ServerKt")
 }
 
 tasks.named<Copy>("jvmProcessResources") {

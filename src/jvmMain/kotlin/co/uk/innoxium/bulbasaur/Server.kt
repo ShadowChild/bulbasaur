@@ -1,4 +1,4 @@
-package co.uk.innoxium.application
+package co.uk.innoxium.bulbasaur
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
