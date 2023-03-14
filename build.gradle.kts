@@ -3,7 +3,12 @@ plugins {
     application
 }
 
-val ktor_version = "2.2.3"
+fun kotlinw(target: String): String =
+    "org.jetbrains.kotlin-wrappers:kotlin-$target"
+
+val kWrapperVer = "1.0.0-pre.511"
+
+val ktorVersion = "2.2.3"
 
 group = "co.uk.innoxium"
 version = "1.0-SNAPSHOT"
@@ -41,21 +46,25 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-server-netty:$ktor_version")
-                implementation("io.ktor:ktor-server-html-builder-jvm:$ktor_version")
-                implementation("io.ktor:ktor-server-status-pages:$ktor_version")
+                implementation("io.ktor:ktor-server-netty:$ktorVersion")
+                implementation("io.ktor:ktor-server-html-builder-jvm:$ktorVersion")
+                implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+                implementation("io.ktor:ktor-server-auth:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
             }
         }
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.346")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.346")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.9.3-pre.346")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.346")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.346")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.346")
+                implementation(enforcedPlatform(kotlinw("wrappers-bom:$kWrapperVer")))
+                implementation(kotlinw("react"))
+                implementation(kotlinw("react-dom"))
+                implementation(kotlinw("emotion"))
+                implementation(kotlinw("react-router-dom"))
+                implementation(kotlinw("redux"))
+                implementation(kotlinw("react-redux"))
+                implementation(kotlinw("mui"))
+                implementation(kotlinw("mui-icons"))
             }
         }
         val jsTest by getting

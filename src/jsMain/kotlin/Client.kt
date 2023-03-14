@@ -1,13 +1,14 @@
-import kotlinx.browser.document
 import react.create
 import react.dom.client.createRoot
+import web.dom.document
 
 fun main() {
     val container = document.createElement("div")
-    document.body!!.appendChild(container)
+    document.body.appendChild(container)
 
-    val welcome = Welcome.create {
+
+    val mainToolbar = MainToolbar.create {
         name = "Kotlin/JS"
     }
-    createRoot(container).render(welcome)
+    createRoot(container).render(mainToolbar)
 }
