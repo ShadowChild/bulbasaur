@@ -28,39 +28,43 @@ fun HTML.index() {
     }
 }
 
-fun main() {
-    embeddedServer(Netty, port = 5656, host = "127.0.0.1") {
-        install(Authentication) {
-            basic("basic-auth") {
-                realm = "access to application"
-                validate { credentials ->
+class Server {
 
-                    if(credentials.name == "shad0w" && credentials.password == "testpass") {
+    fun main() {
+        embeddedServer(Netty, port = 5656, host = "127.0.0.1") {
+            install(Authentication) {
+                basic("basic-auth") {
+                    realm = "access to application"
+                    validate { credentials ->
 
-                        UserIdPrincipal(credentials.name)
-                    } else {null}
+                        if (credentials.name == "shad0w" && credentials.password == "testpass") {
+
+                            UserIdPrincipal(credentials.name)
+                        } else {
+                            null
+                        }
+                    }
                 }
             }
-        }
-        install(StatusPages) {
-            status(HttpStatusCode.NotFound) {
-                    call, _ -> 
-                call.respondRedirect("/")
-            }
-        }
-        install(ShutDownUrl.ApplicationCallPlugin) {
-            shutDownUrl = "/pokeball"
-            exitCodeSupplier = { 0 }
-        }
-        routing {
-            authenticate("basic-auth") {
-                get("/") {
-                    call.respondHtml(HttpStatusCode.OK, HTML::index)
+            install(StatusPages) {
+                status(HttpStatusCode.NotFound) { call, _ ->
+                    call.respondRedirect("/")
                 }
             }
-            static("/static") {
-                resources()
+            install(ShutDownUrl.ApplicationCallPlugin) {
+                shutDownUrl = "/pokeball"
+                exitCodeSupplier = { 0 }
             }
-        }
-    }.start(wait = true)
+            routing {
+//                authenticate("basic-auth") {
+                    get("/") {
+                        call.respondHtml(HttpStatusCode.OK, HTML::index)
+                    }
+//                }
+                static("/static") {
+                    resources()
+                }
+            }
+        }.start(wait = true)
+    }
 }

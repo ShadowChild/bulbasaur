@@ -7,8 +7,10 @@ fun kotlinw(target: String): String =
     "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
 val kWrapperVer = "1.0.0-pre.511"
-
 val ktorVersion = "2.2.3"
+val jcefVersion = "110.0.25"
+val cybernizeVersion = "1.1.6"
+val logbackVersion = "1.4.6"
 
 group = "co.uk.innoxium"
 version = "1.0-SNAPSHOT"
@@ -17,6 +19,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
+    maven("https://repo.repsy.io/mvn/innoxium/innoxium")
 }
 
 kotlin {
@@ -46,10 +49,18 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
+                // My Common Library
+                implementation("uk.co.innoxium.cybernize:cybernize:${cybernizeVersion}")
+
+                // JCeF for desktop client
+                implementation("me.friwi:jcefmaven:$jcefVersion")
+
+                // Ktor and other server related packages
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
                 implementation("io.ktor:ktor-server-html-builder-jvm:$ktorVersion")
                 implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
                 implementation("io.ktor:ktor-server-auth:$ktorVersion")
+                implementation("ch.qos.logback:logback-classic:$logbackVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
             }
         }
@@ -72,7 +83,7 @@ kotlin {
 }
 
 application {
-    mainClass.set("co.uk.innoxium.bulbasaur.ServerKt")
+    mainClass.set("co.uk.innoxium.bulbasaur.DesktopServerKt")
 }
 
 tasks.named<Copy>("jvmProcessResources") {
