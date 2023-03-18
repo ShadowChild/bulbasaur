@@ -21,8 +21,9 @@ fun HTML.index() {
         }
     }
     body {
-        div {
-            id = "root"
+        style{
+
+            "background-color: ${Theme.currentTheme.styling.backgroundColourHex}"
         }
         script(src = "/static/Bulbasaur.js") {}
     }

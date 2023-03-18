@@ -10,8 +10,6 @@ import javax.swing.JFrame
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
-class DesktopServer {
-}
 
 fun main(args: Array<String>) {
 

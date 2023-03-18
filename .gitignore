@@ -4,4 +4,6 @@
 /build/classes/kotlin/js/main/
 /build/classes/kotlin/jvm/main/
 
-.idea
+/.idea
+/jcef-bundle
+/jcef-bundles
