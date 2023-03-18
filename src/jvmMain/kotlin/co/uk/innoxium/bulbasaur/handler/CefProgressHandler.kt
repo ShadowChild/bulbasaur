@@ -1,4 +1,4 @@
-package co.uk.innoxium.bulbasaur
+package co.uk.innoxium.bulbasaur.handler
 
 import me.friwi.jcefmaven.EnumProgress
 import me.friwi.jcefmaven.IProgressHandler

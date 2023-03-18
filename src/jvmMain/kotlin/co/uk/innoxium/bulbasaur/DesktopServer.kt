@@ -1,5 +1,7 @@
 package co.uk.innoxium.bulbasaur
 
+import co.uk.innoxium.bulbasaur.handler.AuthHandler
+import co.uk.innoxium.bulbasaur.handler.CefProgressHandler
 import me.friwi.jcefmaven.CefAppBuilder
 import me.friwi.jcefmaven.MavenCefAppHandlerAdapter
 import org.cef.CefApp
@@ -45,6 +47,7 @@ fun main(args: Array<String>) {
         val cefClient = cefApp.createClient()
         val cefMessageRouter = CefMessageRouter.create()
         cefClient.addMessageRouter(cefMessageRouter)
+        cefClient.addRequestHandler(AuthHandler())
         val browser = cefClient.createBrowser("127.0.0.1:5656", false, false)
 
         frame = JFrame()

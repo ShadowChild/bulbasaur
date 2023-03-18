@@ -57,11 +57,11 @@ class Server {
                 exitCodeSupplier = { 0 }
             }
             routing {
-//                authenticate("basic-auth") {
+                authenticate("basic-auth") {
                     get("/") {
                         call.respondHtml(HttpStatusCode.OK, HTML::index)
                     }
-//                }
+                }
                 static("/static") {
                     resources()
                 }

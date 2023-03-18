@@ -2,23 +2,23 @@
 import co.uk.innoxium.bulbasaur.Theme
 import csstype.*
 import mui.icons.material.Add
-import mui.icons.material.Check
-import mui.icons.material.LightMode
 import mui.icons.material.Remove
 import mui.material.*
 import mui.material.Size
+import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.FC
 import react.Props
 import react.ReactNode
-import react.dom.aria.ariaLabel
+import react.dom.aria.ariaDescribedBy
+import react.dom.aria.ariaLabelledBy
+import react.useState
 
 external interface MainAppProps : Props {
-    var name: String
 }
+val MainApp = FC<MainAppProps> { properties ->
 
-val MainApp = FC<MainAppProps> { _ ->
-//    var name by useState(props.name)
+    val (removeTorrentErrorModalOpen, setRemoveTorrentErrorModalOpen) = useState(false)
 
     AppBar {
 
@@ -26,7 +26,7 @@ val MainApp = FC<MainAppProps> { _ ->
         sx {
 
             gridArea = ident("header")
-//            zIndex = integer(1_500)
+            zIndex = integer(1_500)
         }
 
         Toolbar {
@@ -39,8 +39,12 @@ val MainApp = FC<MainAppProps> { _ ->
             Tooltip {
 
                 title = ReactNode("Add Torrent")
-                IconButton {
+                Fab {
 
+                    sx {
+
+                        marginRight = 10.px
+                    }
                     size = Size.small
 
                     Add()
@@ -49,11 +53,55 @@ val MainApp = FC<MainAppProps> { _ ->
             Tooltip {
 
                 title = ReactNode("Remove Torrent")
-                IconButton {
+                Fab {
 
                     size = Size.small
 
+                    onClick = {
+                        setRemoveTorrentErrorModalOpen(true)
+                    }
                     Remove()
+                }
+            }
+            Modal {
+
+                open = removeTorrentErrorModalOpen
+                onClose = {
+
+                    setRemoveTorrentErrorModalOpen(false)
+                }
+                ariaLabelledBy = "modal-modal-title"
+                ariaDescribedBy = "modal-modal-description"
+
+                Box {
+
+                    sx {
+
+                        position = Position.absolute
+                        top = 50.pct
+                        left = 50.pct
+                        transform = translate((-50).pct, (-50).pct)
+                        width = 400.px
+                        border = 2.px
+                        borderStyle = LineStyle.solid
+                        borderColor = Color("#000")
+                        boxShadow = BoxShadow(24.px, 24.pct, Color("#000")) // TODO: Fix size of box shadow
+                    }
+                    Typography {
+
+                        id = "modal-modal-title"
+                        variant = TypographyVariant.h6
+                        + "Alert!"
+                    }
+                    Typography {
+
+                        id = "modal-modal-description"
+                        variant = TypographyVariant.h6
+                        sx {
+                            marginTop = 2.px
+                        }
+                        + "You have not selected a torrent to remove!"
+                    }
                 }
             }
 

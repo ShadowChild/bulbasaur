@@ -7,7 +7,7 @@ fun main() {
     document.body.appendChild(container)
 
     val mainApp = MainApp.create {
-        name = "Kotlin/JS"
+
     }
     createRoot(container).render(mainApp)
 }

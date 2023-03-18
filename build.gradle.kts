@@ -6,7 +6,7 @@ plugins {
 fun kotlinw(target: String): String =
     "org.jetbrains.kotlin-wrappers:kotlin-$target"
 
-val kWrapperVer = "1.0.0-pre.511"
+val kWrapperVer = "1.0.0-pre.515"
 val ktorVersion = "2.2.3"
 val jcefVersion = "110.0.25"
 val cybernizeVersion = "1.1.6"
